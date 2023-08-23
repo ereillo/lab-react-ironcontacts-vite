@@ -18,13 +18,17 @@ function App() {
   }
 
 
-  const handleSortContacts = () => {
+  const handleSortContacts = (porTipo) => {
   console.log("intentando ordenar")
   
   let clone = JSON.parse(JSON.stringify(contacts))
   
   clone.sort((cont1, cont2) => {
-   return cont1.name > cont2.name ? 1 : -1
+    if (porTipo === "name")
+    {return cont1.name > cont2.name ? 1 : -1}
+    else if (porTipo === "popularity") {
+      return cont1.popularity > cont2.popularity ? -1 : 1
+    }
   })
   setContacts(clone)
   }
@@ -44,8 +48,8 @@ function App() {
       <h1>ContactList</h1>
       
       <button onClick={handleAddContact}>Add random contact</button>
-      <button onClick={handleSortContacts}>Sort by name</button>
-      <button onClick={handleSortContacts}>Sort by popularity</button>
+      <button onClick={() => handleSortContacts("name")}>Sort by name</button>
+      <button onClick={() => handleSortContacts("popularity")}>Sort by popularity</button>
 
       <table>
         <thead>
